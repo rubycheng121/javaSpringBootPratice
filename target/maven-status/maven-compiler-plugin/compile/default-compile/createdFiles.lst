@@ -1,8 +1,0 @@
-ruby/springboot/practice/dao/FakePersonDataAccessService.class
-ruby/springboot/practice/dao/PersonDao.class
-ruby/springboot/practice/dao/PersonDataAccessService.class
-ruby/springboot/practice/PracticeApplication.class
-ruby/springboot/practice/model/NonBlank.class
-ruby/springboot/practice/api/PersonController.class
-ruby/springboot/practice/service/PersonService.class
-ruby/springboot/practice/model/Person.class
