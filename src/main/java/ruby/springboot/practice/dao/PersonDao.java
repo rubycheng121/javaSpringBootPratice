@@ -2,6 +2,7 @@ package ruby.springboot.practice.dao;
 
 import ruby.springboot.practice.model.Person;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,7 +13,11 @@ public interface PersonDao {
         UUID id = UUID.randomUUID();
         return  insertPerson(id,person);
     }
-    List<Person> selectAllPeople();
+
+    default List<Person> selectAllPeople()  {
+        return null;
+    }
+
     int deletePersonById(UUID id);
     int updatePersonById(UUID id, Person person);
     Optional<Person> selectPersonById(UUID id);

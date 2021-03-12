@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ruby.springboot.practice.dao.PersonDao;
 import ruby.springboot.practice.model.Person;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class PersonService {
     private final PersonDao personDao;
 
     @Autowired
-    public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+    public PersonService(@Qualifier("postgres") PersonDao personDao) {
         this.personDao = personDao;
     }
 
@@ -23,7 +24,7 @@ public class PersonService {
         return personDao.insertPerson(person);
     }
 
-    public List<Person> getAllPeople(){
+    public List<Person> getAllPeople()  {
         return personDao.selectAllPeople();
     }
     public Optional<Person> getPersonById(UUID id){

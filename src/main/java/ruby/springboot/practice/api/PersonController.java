@@ -1,10 +1,14 @@
 package ruby.springboot.practice.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ruby.springboot.practice.model.Person;
 import ruby.springboot.practice.service.PersonService;
 
+import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,12 +23,12 @@ public class PersonController {
         this.personService = personService;
     }
     @PostMapping
-    public void addPerson(@RequestBody Person person){
+    public void addPerson( @Valid @NonNull @RequestBody Person person){
         personService.addPerson(person);
     }
 
     @GetMapping
-    public List<Person> getAllPeople(){
+    public List<Person> getAllPeople() throws SQLException {
         return personService.getAllPeople();
     }
 
@@ -40,7 +44,7 @@ public class PersonController {
     }
 
     @PutMapping(path="{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @RequestBody Person personToUpdate){
+    public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person personToUpdate){
         personService.updatePerson(id,personToUpdate);
     }
 }
