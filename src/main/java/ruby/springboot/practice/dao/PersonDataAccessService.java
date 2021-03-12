@@ -25,7 +25,8 @@ public class PersonDataAccessService implements PersonDao{
 
     @Override
     public int insertPerson(UUID id, Person person) {
-        return 0;
+        String sql = "INSERT INTO person(id,name) VALUES (uuid_generate_v4(), ?);";
+        return jdbcTemplate.update(sql,person.getName());
     }
 
 
@@ -39,34 +40,32 @@ public class PersonDataAccessService implements PersonDao{
             System.out.println(name);
             return new Person(id,name);
         });
-
-//        List<Person> people = (List<Person>) jdbcTemplate.query(sql, (resultSet -> {
-//            UUID id = UUID.fromString(resultSet.getString("id"));
-//            System.out.println(id.toString());
-//            String name = resultSet.getString("name");
-//            System.out.println(name);
-//                    return new Person(id,name);
-//        }));
-//        return people;
     }
 
-//        @Override
-//    public List<Person> selectAllPeople() {
-//            return List.of(new Person(UUID.randomUUID(), "FROM POSTGRES DB"));
-//    }
 
     @Override
     public int deletePersonById(UUID id) {
-        return 0;
+        String sql = "DELETE FROM person WHERE id= ? ;";
+        return jdbcTemplate.update(sql,id);
     }
 
     @Override
     public int updatePersonById(UUID id, Person person) {
-        return 0;
+        String sql = "UPDATE person SET name=? WHERE id= ? ;";
+        return jdbcTemplate.update(sql,person.getName(),id);
     }
 
     @Override
     public Optional<Person> selectPersonById(UUID id) {
-        return Optional.empty();
+        String sql = "SELECT id, name FROM person where id =?;";
+        Person person =  jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{id},
+                (resultSet,i) -> {
+                    UUID personId = UUID.fromString(resultSet.getString("id"));
+                    String name = resultSet.getString("name");
+                    return new Person(id,name);
+                });
+        return Optional.ofNullable(person);
     }
 }
