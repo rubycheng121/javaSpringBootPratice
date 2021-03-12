@@ -13,10 +13,11 @@ HOW TO USE:
 - running docker image `docker run -p 8085:8080 pratice-app`
 - the postgres structure, database: demodb, 
 
+```
 Table "public.person"
  Column |          Type          | Collation | Nullable | Default 
 --------+------------------------+-----------+----------+---------
  id     | uuid                   |           | not null | 
  name   | character varying(100) |           | not null | 
-
+```
 
